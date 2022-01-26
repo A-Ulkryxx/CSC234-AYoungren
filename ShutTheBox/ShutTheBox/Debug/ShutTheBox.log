@@ -1,0 +1,3 @@
+﻿  ShutTheBox.cpp
+D:\Development\CSC234-AYoungren\ShutTheBox\ShutTheBox\ShutTheBox.cpp(12,9): warning C4101: 'x': unreferenced local variable
+  ShutTheBox.vcxproj -> D:\Development\CSC234-AYoungren\ShutTheBox\Debug\ShutTheBox.exe
