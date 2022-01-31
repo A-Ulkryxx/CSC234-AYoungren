@@ -8,11 +8,11 @@ using namespace std;
 
 int main()
 {
-    int sum = 0;
-    int x;
     char view;
-    string line;
-    ifstream instructions;
+    ifstream infile;
+    string instructions;
+
+    infile.open("shutTheBoxInstructions.txt", ios::in);
 
     cout << "Would you like to read the directions for \"Shut the Box\"? (y/n)\n";
     cin >> view;
@@ -20,20 +20,15 @@ int main()
 
     if (view == 'y')
     {
-        instructions.open("shutTheBoxInstructions.txt", ios::in);
-        if (instructions.is_open()) {
-            while (getline(instructions, line)) {
-                cout << line << std::endl;
-            }
-            instructions.close();
-        }
-        else if (!instructions)
+        while (!infile.fail() && getline(infile, instructions))
         {
-            cout << "Unable to open file.";
-            exit(1);
+            cout << instructions << endl;
         }
-        else { ; }
-        
     }
     else { ; }
+
+    infile.close();
+
+    system("PAUSE");
+    return 0;
 }
