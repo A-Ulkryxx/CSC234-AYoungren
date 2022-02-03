@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ShutTheBoxAY1.cpp">
+    <ClCompile Include="ShutTheBoxAY2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
