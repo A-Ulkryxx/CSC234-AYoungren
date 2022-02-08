@@ -13,43 +13,45 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <stdlib.h>
+#include <ctime>
+
 using namespace std;
 
 const int BOX_NUMS = 9;
 
+void playerTurn(string toggle[], int& diceCount1, int& playing, int& dice1, int& dice2);
+int winnerDec(int playing, string toggle1[], string toggle2[]);
+void diceRoll(int& dice1, int& dice2);
 void openInstructions();
-void diceRoll(int& dice1,int& dice2);
-void getBoxes(int boxes[]);
+void gameBoard(string toggle[]);
 void toggleStart(string toggle[]);
-void gameBoard(const int boxes[], string toggle[]);
 void toggleSum(int diceChoice, string toggle[]);
 void toggleDice(int dice1, int dice2, string toggle[]);
 bool gameWinner(string toggle[]);
+void winnerAnnounce(int winner, int diceCount1, int diceCount2, int players);
+
 
 int main()
 {
     srand((unsigned)time(0));
     char view;
-    int dice1, dice2;
-    int diceChoice, diceSum;
-    int players, playing = 1, winner;
-    const int boxes[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    int players, winner, playing = 1;
     string toggle1[BOX_NUMS], toggle2[BOX_NUMS];
-    bool winGame;
     int diceCount1 = 0, diceCount2 = 0;
+    int dice1, dice2;
+    bool winnerCheck;
 
     cout << "Would you like to read the directions for \"Shut the Box\"? (y/n)\n";
     cin >> view;
     cout << endl;
-
     if (view == 'y')
     {
         openInstructions();
     }
     else { ; }
-    
-    do{
+
+    do
+    {
         cout << "\n1 player or 2 players?"<<endl;
         cin >> players;
         cout << endl;
@@ -61,120 +63,111 @@ int main()
         toggleStart(toggle2);
     }
 
-    do {
-        if (playing == 1)
-        {
-            cout << "Player 1: Before Decision\n";
-            gameBoard(boxes, toggle1);
-            diceRoll(dice1, dice2);
-            diceCount1++;
-            cout << "\nDice One rolled: " << dice1 << "\nDice Two rolled: " << dice2 << endl;
-            cout << "Would you like to use these dice seperately(1) or as an added sum(2)? \n";
-            cin >> diceChoice;
-
-            while ((diceChoice < 1) | (diceChoice > 2))
-            {
-                cout << "That is not a valid choice, please choose \"seperately\" with \"1\" or \"sum\" with \"2\".\n";
-                cin >> diceChoice;
-            }
-
-            if (diceChoice == 2)
-            {
-                diceSum = dice1 + dice2;
-                if (diceSum > 9)
-                {
-                    cout << "This sum of dice is not within range. No move will be taken.\nTurn passed.\n";
-                   
-                }
-                else
-                {
-                    cout << "Box " << diceSum << " will be toggled\n";
-                    toggleSum(diceSum, toggle1);
-                }
-            }
-            else
-            {
-                cout << "Boxes " << dice1 << " and " << dice2 << " will be toggled\n";
-                toggleDice(dice1, dice2, toggle1);
-            }
-            cout << "\nPlayer 1: After Decision\n";
-            gameBoard(boxes, toggle1);
-        }
-        else
-        {
-            cout << "Player 2: Before Decision\n";
-            gameBoard(boxes, toggle2);
-            diceRoll(dice1, dice2);
-            diceCount2++;
-            cout << "\nDice One rolled: " << dice1 << "\nDice Two rolled: " << dice2 << endl;
-            cout << "Would you like to use these dice seperately(1) or as an added sum(2)? \n";
-            cin >> diceChoice;
-
-            while ((diceChoice < 1) | (diceChoice > 2))
-            {
-                cout << "That is not a valid choice, please choose \"seperately\" with \"1\" or \"sum\" with \"2\".\n";
-                cin >> diceChoice;
-            }
-
-            if (diceChoice == 2)
-            {
-                diceSum = dice1 + dice2;
-                if (diceSum > 9)
-                {
-                    cout << "This sum of dice is not within range. You will have to use the dice seperately\n";
-                    cout << "Boxes " << dice1 << " and " << dice2 << " will be toggled\n";
-                    toggleDice(dice1, dice2, toggle2);
-                }
-                else
-                {
-                    cout << "Box " << diceSum << " will be toggled\n";
-                    toggleSum(diceSum, toggle2);
-                }
-            }
-            else
-            {
-                cout << "Boxes " << dice1 << " and " << dice2 << " will be toggled\n";
-                toggleDice(dice1, dice2, toggle2);
-            }
-            cout << "\nPlayer 2: After Decision\n";
-            gameBoard(boxes, toggle2);
-        }
-
-        if (playing == 1)
-        {
-            winGame = gameWinner(toggle1);
-            winner = 1;
-        }
-        else
-        {
-            winGame = gameWinner(toggle2);
-            winner = 2;
-        }
-        if ((players == 2) & (dice1 != dice2))
-        {
-            if (playing == 1)
-            {
-                playing = 2;
-            }
-            else
-            {
-                playing = 1;
-            }
-        }
-
-    } while (winGame == false);
-
-    cout << "\nPlayer " << winner << " wins!!!";
-    cout << "\nPlayer 1 rolled the dice " << diceCount1 << "times.";
-    if (players == 2)
+    do
     {
-        cout << "\nPlayer 2 rolled the dice " << diceCount2 << "times.";
-    }
-    cout << "\nTotal rolls it took to win the game was " << (diceCount1 + diceCount2);
+        if (playing == 1)
+        {
+            playerTurn(toggle1, diceCount1, playing, dice1, dice2);
+        }
+        else
+        {
+            playerTurn(toggle2, diceCount2, playing, dice1, dice2);
+        }
+            winner = winnerDec(playing, toggle1, toggle2);
+        if ((playing == 1) && (dice1 != dice2))
+        {
+            playing = 2;
+        }
+        else if ((playing == 2) && (dice1 != dice2))
+        {
+            playing = 1;
+        }
+    } while (winner < 1);
 
     system("PAUSE");
     return 0;
 }
+
+/// <summary>
+///  Where the meat of the game takes place. Player(s) turns and actions.
+/// </summary>
+/// <param name="toggle"> a player's board</param>
+/// <param name="diceCount"> the number of times a player has rolled the dice</param>
+/// <param name="playing"> the player taking actions </param>
+/// <param name="dice1"> The first dice</param>
+/// <param name="dice2"> the second dice</param>
+void playerTurn(string toggle[], int& diceCount, int& playing, int& dice1, int& dice2)
+{
+    int diceChoice, diceSum;
+
+    cout << "Player" << playing <<": Before Decision\n";
+    gameBoard(toggle);
+    diceRoll(dice1, dice2);
+    diceCount++;
+    cout << "\nDice One rolled: " << dice1 << "\nDice Two rolled: " << dice2 << endl;
+    diceSum = dice1 + dice2;
+    if (diceSum > 9)
+    {
+        cout << "This sum of dice is not within range. You will have to use the dice seperately\n";
+        cout << "Boxes " << dice1 << " and " << dice2 << " will be toggled\n";
+        toggleDice(dice1, dice2, toggle);
+    }
+    else
+    {
+        cout << "Would you like to use these dice seperately(1) or as an added sum(2)? \n";
+        cin >> diceChoice;
+        while ((diceChoice < 1) | (diceChoice > 2))
+        {
+            cout << "That is not a valid choice, please choose \"seperately\" with \"1\" or \"sum\" with \"2\".\n";
+            cin >> diceChoice;
+        }
+        if (diceChoice == 2)
+        {
+            cout << "Box " << diceSum << " will be toggled\n";
+            toggleSum(diceSum, toggle);
+        }
+        else
+        {
+            cout << "Boxes " << dice1 << " and " << dice2 << " will be toggled\n";
+            toggleDice(dice1, dice2, toggle);
+        }
+    }
+    cout << "\nPlayer"<< playing<< ": After Decision\n";
+    gameBoard( toggle);
+}
+
+/// <summary>
+/// Checks for a winner
+/// </summary>
+/// <param name="playing"> the player that is being checked</param>
+/// <param name="toggle1"> Player 1's board</param>
+/// <param name="toggle2"> Player 2's board</param>
+/// <returns> 1 for player 1 as a winner - 2 for player 2 as winner - 0 if no winner</returns>
+int winnerDec(int playing, string toggle1[], string toggle2[])
+{
+    int winner = 0;
+    bool winGame;
+
+    if (playing == 1)
+    {
+        winGame = gameWinner(toggle1);
+        if (winGame == true)
+        {
+            winner = 1;
+        }
+    }
+    else
+    {
+        winGame = gameWinner(toggle2);
+        if (winGame == true)
+        {
+            winner = 2;
+        }
+    }  
+
+    return winner;
+}
+
 
 /// <summary>
 /// The rolling of 2 six sided dice
@@ -206,10 +199,11 @@ void openInstructions()
 /// <summary>
 /// The game board. Displays each box and their current togglt status
 /// </summary>
-/// <param name="boxes"> Each box's respective number </param>
-/// <param name="toggle"> The toggle status of each box </param>
-void gameBoard(const int boxes[], string toggle[])
+/// <param name="toggle"> The toggle status of each box for associated player </param>
+void gameBoard( string toggle[])
 {
+    const int boxes[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
     cout << "      " << toggle[0] << "    " << toggle[1] << "    " << toggle[2] << "    " << toggle[3]<< "\n";
     cout << "    _________________________________________\n";
     cout << "    |         |         |         |         |\n";
@@ -233,7 +227,7 @@ void gameBoard(const int boxes[], string toggle[])
 /// <summary>
 /// Sets the toggle status for each box at the beginning of the game to "OPEN"
 /// </summary>
-/// <param name="toggle"> The toggle status of each box </param>
+/// <param name="toggle"> The toggle status of each box for the associated player</param>
 void toggleStart(string toggle[])
 {
     for (int i = 0; i < BOX_NUMS; i++)
@@ -246,7 +240,7 @@ void toggleStart(string toggle[])
 /// Toggles the box number status that correlates with the sum of two dice
 /// </summary>
 /// <param name="diceSum"> the total value of two dice added </param>
-/// <param name="toggle"> The toggle status of each box </param>
+/// <param name="toggle">  The toggle status of each box for the associated player </param>
 void toggleSum(int diceSum, string toggle[])
 {
     if (toggle[diceSum - 1].compare("*OPEN*") == 0)
@@ -290,7 +284,7 @@ void toggleDice(int dice1, int dice2, string toggle[])
 /// Traverses a players toggle array to check for a winner.
 /// If any boxes are OPEN, function will return false.
 /// </summary>
-/// <param name="toggle"> The toggle status of each box </param>
+/// <param name="toggle">  The toggle status of each box for the associated player </param>
 /// <returns> false: if any boxes are open.
 /// true: if all boxes are shut. </returns>
 bool gameWinner(string toggle[])
@@ -305,6 +299,15 @@ bool gameWinner(string toggle[])
     return true;
 }
 
-
+void winnerAnnounce(int winner, int diceCount1, int diceCount2, int players)
+{
+    cout << "\nPlayer " << winner << " wins!!!";
+    cout << "\nPlayer 1 rolled the dice " << diceCount1 << "times.";
+    if (players == 2)
+    {
+        cout << "\nPlayer 2 rolled the dice " << diceCount2 << "times.";
+    }
+    cout << "\nTotal rolls it took to win the game was " << (diceCount1 + diceCount2);
+}
 
 //Problems: None
