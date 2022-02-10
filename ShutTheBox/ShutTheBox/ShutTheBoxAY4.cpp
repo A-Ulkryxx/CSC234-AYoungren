@@ -20,7 +20,7 @@ using namespace std;
 const int BOX_NUMS = 9;
 
 void playerTurn(string toggle[], int& diceCount1, int& playing, int& dice1, int& dice2);
-int winnerDec(int playing, string toggle1[], string toggle2[]);
+int winnerDec(int playing, string toggle1[], string toggle2[], int players);
 void diceRoll(int& dice1, int& dice2);
 void openInstructions();
 void gameBoard(string toggle[]);
@@ -73,16 +73,20 @@ int main()
         {
             playerTurn(toggle2, diceCount2, playing, dice1, dice2);
         }
-            winner = winnerDec(playing, toggle1, toggle2);
-        if ((playing == 1) && (dice1 != dice2))
+        winner = winnerDec(playing, toggle1, toggle2, players);
+        if (players == 2)
         {
-            playing = 2;
-        }
-        else if ((playing == 2) && (dice1 != dice2))
-        {
-            playing = 1;
+            if ((playing == 1) && (dice1 != dice2))
+            {
+                playing = 2;
+            }
+            else if ((playing == 2) && (dice1 != dice2))
+            {
+                playing = 1;
+            }
         }
     } while (winner < 1);
+    winnerAnnounce(winner, diceCount1, diceCount2, players);
 
     system("PAUSE");
     return 0;
@@ -100,7 +104,7 @@ void playerTurn(string toggle[], int& diceCount, int& playing, int& dice1, int& 
 {
     int diceChoice, diceSum;
 
-    cout << "Player" << playing <<": Before Decision\n";
+    cout << "Player" << playing <<": Before Decision\n"<<endl;
     gameBoard(toggle);
     diceRoll(dice1, dice2);
     diceCount++;
@@ -132,7 +136,7 @@ void playerTurn(string toggle[], int& diceCount, int& playing, int& dice1, int& 
             toggleDice(dice1, dice2, toggle);
         }
     }
-    cout << "\nPlayer"<< playing<< ": After Decision\n";
+    cout << "\nPlayer"<< playing<< ": After Decision\n"<<endl;
     gameBoard( toggle);
 }
 
@@ -143,12 +147,30 @@ void playerTurn(string toggle[], int& diceCount, int& playing, int& dice1, int& 
 /// <param name="toggle1"> Player 1's board</param>
 /// <param name="toggle2"> Player 2's board</param>
 /// <returns> 1 for player 1 as a winner - 2 for player 2 as winner - 0 if no winner</returns>
-int winnerDec(int playing, string toggle1[], string toggle2[])
+int winnerDec(int playing, string toggle1[], string toggle2[], int players)
 {
     int winner = 0;
     bool winGame;
-
-    if (playing == 1)
+    if (players == 2)
+    {
+        if (playing == 1)
+        {
+            winGame = gameWinner(toggle1);
+            if (winGame == true)
+            {
+                winner = 1;
+            }
+        }
+        else
+        {
+            winGame = gameWinner(toggle2);
+            if (winGame == true)
+            {
+                winner = 2;
+            }
+        }
+    }
+    else
     {
         winGame = gameWinner(toggle1);
         if (winGame == true)
@@ -156,14 +178,6 @@ int winnerDec(int playing, string toggle1[], string toggle2[])
             winner = 1;
         }
     }
-    else
-    {
-        winGame = gameWinner(toggle2);
-        if (winGame == true)
-        {
-            winner = 2;
-        }
-    }  
 
     return winner;
 }
@@ -203,22 +217,20 @@ void openInstructions()
 void gameBoard( string toggle[])
 {
     const int boxes[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-
-    cout << "      " << toggle[0] << "    " << toggle[1] << "    " << toggle[2] << "    " << toggle[3]<< "\n";
+    cout << "         " << boxes[0] << "    " << "     " << boxes[1] << "    " << "     " << boxes[2]
+        << "    " << "     " << boxes[3] << "     \n";
     cout << "    _________________________________________\n";
     cout << "    |         |         |         |         |\n";
-    cout << "    |    " << boxes[0] << "    " << "|    " << boxes[1] << "    " << "|    " << boxes[2] 
-            << "    " << "|    " << boxes[3] << "    |\n";
+    cout << "    | " << toggle[0] << "  | " << toggle[1] << "  | " << toggle[2] << "  | " << toggle[3] << "  |\n";
     cout << "    |         |         |         |         |\n";
     cout << "    |=======================================|\n";
     cout << endl;
-
-    cout << "      " << toggle[4] << "    " << toggle[5] << "    " << toggle[6] 
-             << "    " << toggle[7] << "    " << toggle[8] << "\n";
+    cout << "         " << boxes[4] << "    " << "     " << boxes[5] << "    " << "     " << boxes[6]
+        << "    " << "     " << boxes[7] << "     " << "    " << boxes[8] << "     \n";
     cout << "    ___________________________________________________\n";
     cout << "    |         |         |         |         |         |\n";
-    cout << "    |    " << boxes[4] << "    " << "|    " << boxes[5] << "    " << "|    " << boxes[6] 
-            << "    " << "|    " << boxes[7] << "    |" << "    " << boxes[8] << "    |\n";
+    cout << "    | " << toggle[4] << "  | " << toggle[5] << "  | " << toggle[6]
+        << "  | " << toggle[7] << "  | " << toggle[8] << "  |\n";
     cout << "    |         |         |         |         |         |\n";
     cout << "    |=================================================|\n";
     cout << endl;
@@ -301,13 +313,13 @@ bool gameWinner(string toggle[])
 
 void winnerAnnounce(int winner, int diceCount1, int diceCount2, int players)
 {
-    cout << "\nPlayer " << winner << " wins!!!";
-    cout << "\nPlayer 1 rolled the dice " << diceCount1 << "times.";
+    cout << "\nPlayer " << winner << " wins!!!"<< endl;
+    cout << "Player 1 rolled the dice " << diceCount1 << "times."<<endl;
     if (players == 2)
     {
-        cout << "\nPlayer 2 rolled the dice " << diceCount2 << "times.";
+        cout << "Player 2 rolled the dice " << diceCount2 << " times."<< endl;
     }
-    cout << "\nTotal rolls it took to win the game was " << (diceCount1 + diceCount2);
+    cout << "Total rolls it took to win the game was " << (diceCount1 + diceCount2) << endl;
 }
 
 //Problems: None
