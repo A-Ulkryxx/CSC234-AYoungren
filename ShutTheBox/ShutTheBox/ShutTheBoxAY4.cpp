@@ -35,9 +35,11 @@ int main()
 {
     srand((unsigned)time(0));
     char view;
-    int players, winner, playing = 1;
+    int players, winner;
+    int playing = 1;
     string toggle1[BOX_NUMS], toggle2[BOX_NUMS];
-    int diceCount1 = 0, diceCount2 = 0;
+    int diceCount1 = 0;
+    int diceCount2 = 0;
     int dice1, dice2;
     bool winnerCheck;
 
@@ -55,7 +57,7 @@ int main()
         cout << "\n1 player or 2 players?"<<endl;
         cin >> players;
         cout << endl;
-    } while ((players < 1) | (players > 2));
+    } while ((players < 1) || (players > 2));
 
     toggleStart(toggle1);
     if (players == 2)
@@ -85,7 +87,7 @@ int main()
                 playing = 1;
             }
         }
-    } while (winner < 1);
+    } while (winner == 0);
     winnerAnnounce(winner, diceCount1, diceCount2, players);
 
     system("PAUSE");
@@ -120,7 +122,7 @@ void playerTurn(string toggle[], int& diceCount, int& playing, int& dice1, int& 
     {
         cout << "Would you like to use these dice seperately(1) or as an added sum(2)? \n";
         cin >> diceChoice;
-        while ((diceChoice < 1) | (diceChoice > 2))
+        while ((diceChoice < 1) || (diceChoice > 2))
         {
             cout << "That is not a valid choice, please choose \"seperately\" with \"1\" or \"sum\" with \"2\".\n";
             cin >> diceChoice;
