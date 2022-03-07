@@ -1,5 +1,5 @@
 /*Austin Youngren
-* 2/16/22
+* 2/25/22
 * Descripton: Dark Rain is an RPG where players can create a character by choosing a race and a character class.
 * The first expansion of Dark Rain gives you access to Saurgon's home races and character classes. Players use their
 * chosen character's arsenal to fight off the undead spawning from the dirt to protect their home and find the source
@@ -108,7 +108,7 @@ public:
 };
 
 /// <summary>
-/// The subclass of Race for Elf
+/// The subclass of Race for Dwarf
 /// </summary>
 class Dwarf : public Race
 {
@@ -148,7 +148,7 @@ public:
 };
 
 /// <summary>
-/// The subclass of Race for Elf
+/// The subclass of Race for Orc
 /// </summary>
 class Orc : public Race
 {
@@ -278,7 +278,7 @@ public:
         }
     }
 
-    void getCharacterDescript()
+    virtual void getCharacterDescript()
     {
         cout << "Creation Did Not Work" << endl;
     }
@@ -357,7 +357,7 @@ public:
     {
         cout << "Paladin: \nName: " << name << endl << race.getRaceType() << "\nHealth: " << health
             << "\nArmor: " << armor << "\nWeapon: " << weapon << "\nMana: "<< mana << 
-            "\nClass passive:\nLanguage of The Ancients - Character can read ancient text\n" 
+            "\nClass passive:\n Language of The Ancients - Character can read ancient text\n" 
             "Class Abilities: \n  Invulerability - A chosen player is invulnerable from damage for X turns\n"
             "  Sword of Light - When cast, all party members are buffed.\n"
             "                 - Strength of the buff is dependent on the roll.\n"
@@ -368,7 +368,7 @@ public:
 };
 
 /// <summary>
-/// Paladin class, magic/tank support roll
+/// Mage class, magic/ranged damage roll
 /// </summary>
 class Mage : public Character
 {
@@ -439,7 +439,7 @@ public:
     {
         cout << "Mage: \nName: " << name << endl << race.getRaceType() << "\nHealth: " << health
             << "\nArmor: " << armor << "\nWeapon: " << weapon << "\nMana: " << mana <<
-            "\nClass passive:\nForesight - Mages can randomly foresee 1 incoming attack per attack round.\n"
+            "\nClass passive:\n Foresight - Mages can randomly foresee 1 incoming attack per attack round.\n"
             "            Mages can also foresee one opponent before entering a room.\n"
             "Class Abilities: \n  Blood Magic - Character sacrifice 25% total health to convert to mana.\n"
             "  Fireball - Character hurls a fireball at an enemy, enemy may get burned for dot damage.\n"
@@ -449,7 +449,7 @@ public:
 };
 
 /// <summary>
-/// Paladin class, magic/tank support roll
+/// Archer class, fury/ ranged damage roll
 /// </summary>
 class Archer : public Character
 {
@@ -520,7 +520,7 @@ public:
     {
         cout << "Archer: \nName: " << name << endl << race.getRaceType() << "\nHealth: " << health
             << "\nArmor: " << armor << "\nWeapon: " << weapon << "\nFury: "
-            << fury << "\nClass passive:\nNimble - ): Can access hard to reach areas (squeeze through crevasses, scale walls)" << endl <<
+            << fury << "\nClass passive:\n Nimble - ): Can access hard to reach areas (squeeze through crevasses, scale walls)" << endl <<
             "\nClass Abilities: \n  An Arrow For All -: Player loads an arrow in their bow for every enemy. Damage varies."
             "\n  Game Changer - : Player Swiftly grabs arrows from their Quiver to launch at an enemy. Each Arrow deals 7 damage."
             "\n  Barrier Breaker - Player Targets an enemy with an arrow that flies fast enough to break the sound barrier." << endl;
@@ -528,7 +528,7 @@ public:
 };
 
 /// <summary>
-/// Paladin class, magic/tank support roll
+/// Barbarian class, fury/melee damage roll
 /// </summary>
 class Barbarian : public Character
 {
@@ -599,129 +599,123 @@ public:
     {
         cout << "Barbarian: \nName: " << name << endl << race.getRaceType() << "\nHealth: " << health
             << "\nArmor: " << armor << "\nWeapon: " << weapon << "\nFury: "
-            << fury << "\nClass passive:\nBrutal Might - Basic Attacks deal 50% extra damage" << endl <<
+            << fury << "\nClass passive:\n Brutal Might - Basic Attacks deal 50% extra damage" << endl <<
             "\nClass Abilities: \n  Raging Cyclone - Player spins in a cyclone dealing burst damage to all enemies."
             "\n  Guillotine Lunge - Player Lunges forward Dealing a large sum of damage possibly stunning the target."
             "\n  Ambidextrous - Basic Attacks Deal 2x Damage for a certain amount of turns." << endl;
     }
 };
 
-void fillName(Character& character);
-void fillRace(Character& character);
-//Character chooseClass();
+void fillName(Character* player);
+void fillRace(Character* player);
+Character* chooseClass();
 
 int main()
 {
-    /*vector <Character> players;
-    vector <Character> :: iterator iter;
-    Character* player = new Character;*/
+    vector <Character*> players;
+    Character* player;
+    int addPlayer = 0;
    
-    //char addPlayer;
-   
-    Paladin player1 = Paladin();
-    Mage player2 = Mage();
-    Barbarian player3 = Barbarian();
-    Archer player4 = Archer();
+    while (addPlayer < 10)
+    {
+        addPlayer++;
+        cout << "Player " << addPlayer << "creation starting." << endl;
+        player = chooseClass();
+        fillName(player);
+        fillRace(player);
+        cout << "Player " << addPlayer << "has been created." << endl;
+       // cout << "Is there another character to add?" << endl;
+        //cin >> addPlayer;
+        
+        players.push_back(player);
+    }
 
-    fillName(player1);
-    fillRace(player1);
-    fillName(player2);
-    fillRace(player2);
-    fillName(player3);
-    fillRace(player3);
-    fillName(player4);
-    fillRace(player4);
+    for (Character* v : players)
+    {
+        v->getCharacterDescript();
+    }
 
-    player1.getCharacterDescript();
-    player2.getCharacterDescript();
-    player3.getCharacterDescript();
-    player4.getCharacterDescript();
-
-        /*creation.getCharacterDescript();
-        *player = creation;
-        player->getCharacterDescript();
-        cout << "Is there another character to add?" << endl;
-        cin >> addPlayer;*/
-     
+    for (Character* v : players)
+    {
+        delete v;
+    }
     system("PAUSE");
     return 0;
 }
 
+Character* chooseClass()
+{
+    int choice;
+    Character* character;
 
-//Character chooseClass()
-//{
-//    int choice;
-//    
-//    cout << "Would you like to be an Paladin(1), an Archer(2), a Mage(3), or a Barbarian(4)." << endl;
-//    cin >> choice;
-//    
-//    while ((choice < 1) || (choice > 4))
-//    {
-//        cout << "That is not a valid choice, use the numbers associated with the class choices as input." << endl;
-//        cout << "Would you like to be an Paladin(1), an Archer(2), a Mage(3), or a Barbarian(4)." << endl;
-//        cin >> choice;
-//    }
-//    if (choice == 1)
-//    {
-//        Paladin character = Paladin();
-//        return character;
-//    }
-//    else if (choice == 2)
-//    {
-//        Archer character = Archer();
-//        return character;
-//    }
-//    else if (choice == 3)
-//    {
-//        Mage character = Mage();
-//        return character;
-//        
-//    }
-//    else 
-//    {
-//        Barbarian character = Barbarian();
-//        return character;
-//    }
-//    
-//}
+    cout << "Would you like to be an Paladin(1), an Archer(2), a Mage(3), or a Barbarian(4)." << endl;
+    cin >> choice;
+    
+    while ((choice < 1) || (choice > 4))
+    {
+        cout << "That is not a valid choice, use the numbers associated with the class choices as input." << endl;
+        cout << "Would you like to be an Paladin(1), an Archer(2), a Mage(3), or a Barbarian(4)." << endl;
+        cin >> choice;
+    }
+    if (choice == 1)
+    {
+        character = new Paladin();
+        return character;
+    }
+    else if (choice == 2)
+    {
+        character = new Archer();
+        return character;
+    }
+    else if (choice == 3)
+    {
+        character = new Mage();
+        return character;
+    }
+    else 
+    {
+        character = new Barbarian();
+        return character;
+    }
+}
 
 /// <summary>
 /// Allows player to set their character name
 /// </summary>
 /// <param name="character"> a player's character</param>
-void fillName(Character& character)
+void fillName(Character* player)
 {
     string name;
     cout << "What is your name?" << endl;
     cin >> name;
-    character.setName(name);
+    player->setName(name);
 }
 
 /// <summary>
 /// Allows player to set their race
 /// </summary>
 /// <param name="character"> a player's character </param>
-void fillRace(Character& character)
+void fillRace(Character* player)
 {
     int race;
-    cout << character.getName() <<" Would you like to be an Elf(1), an Orc(2), or a Dwarf(3)." << endl;
+    cout << player->getName() <<" Would you like to be an Elf(1), an Orc(2), or a Dwarf(3)." << endl;
     cin >> race;
     if (race == 1)
     {
-        character.setRace("Elf");
+        player->setRace("Elf");
     }
     else if (race == 2)
     {
-        character.setRace("Orc");
+        player->setRace("Orc");
     }
     else if (race == 3)
     {
-        character.setRace("Dwarf");
+        player->setRace("Dwarf");
     }
     else
     {
         cout << "No other Race options at this time, Race will be elf" << endl;
-        character.setRace("Elf");
+        player->setRace("Elf");
     }
 }
-//Problems: I am having a very hard time with pointers, I plan on talking with you about them Monday when I am in your office.
+//Problems:
