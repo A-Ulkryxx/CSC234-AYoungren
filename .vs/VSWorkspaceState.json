@@ -1,6 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\FrequencyTables",
+    "\\FrequencyTables\\FrequencyTables",
+    "\\RPG_AY",
+    "\\RPG_AY\\RPG_AY"
   ],
+  "SelectedNode": "\\FrequencyTables\\FrequencyTables\\FrequencyTables.cpp",
   "PreviewInSolutionExplorer": false
 }
