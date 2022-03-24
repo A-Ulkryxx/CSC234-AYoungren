@@ -3,7 +3,11 @@
 #include <map>
 using namespace std;
 
+<<<<<<< HEAD
 //Data Structure's Class for Units, pulled for testing and creation.
+=======
+   //Data Structure's Class for Units, pulled for testing and creation.
+>>>>>>> db8e1fe037e197d4051813072b532d41ff9472c8
 class Unit
 {
 private:
@@ -12,7 +16,10 @@ private:
     string date;
     string schoolYear;
     double district;
+<<<<<<< HEAD
     int maxScore; // added by Austin for conceptual purposes
+=======
+>>>>>>> db8e1fe037e197d4051813072b532d41ff9472c8
 public:
     Unit()
     {
@@ -21,17 +28,26 @@ public:
         date = "";
         schoolYear = "";
         district = 0;
+<<<<<<< HEAD
         maxScore = 0; // added by Austin for conceptual purposes
     }
 
     Unit(string paraAssessment, double paraGrade, string paraDate, string paraSchoolYear, double paraDistrict, int paraMaxScore)
+=======
+    }
+
+    Unit(string paraAssessment, double paraGrade, string paraDate, string paraSchoolYear, double paraDistrict)
+>>>>>>> db8e1fe037e197d4051813072b532d41ff9472c8
     {
         this->assessment = paraAssessment;
         this->grade = paraGrade;
         this->date = paraDate;
         this->schoolYear = paraSchoolYear;
         this->district = paraDistrict;
+<<<<<<< HEAD
         this->maxScore = paraMaxScore; // added by Austin for conceptual purposes
+=======
+>>>>>>> db8e1fe037e197d4051813072b532d41ff9472c8
     }
 
     void setAssessment(string paraAssessment)
@@ -85,6 +101,7 @@ public:
         return this->district;
     }
 
+<<<<<<< HEAD
     void setMaxScore(int paraMaxScore) // added by Austin for conceptual purposes
     {
         this->district = paraMaxScore;
@@ -95,6 +112,8 @@ public:
         return this->maxScore;
     }
 
+=======
+>>>>>>> db8e1fe037e197d4051813072b532d41ff9472c8
 };
 
 vector<double> scoreDistribution(vector<Unit> unitScores);
@@ -113,6 +132,7 @@ int main()
 /// <summary>
 /// Counts the number of occurances of each score within a unit across all students.
 /// </summary>
+<<<<<<< HEAD
 /// 
 /// <param name="unitScores">
 /// A vector containing units. Will likely be replaced by student map which
@@ -126,6 +146,8 @@ int main()
 /// <summary>
 /// Counts the number of occurances of each score within a unit across all students.
 /// </summary>
+=======
+>>>>>>> db8e1fe037e197d4051813072b532d41ff9472c8
 /// <param name="unitScores">
 /// A vector containing units. Will likely be replaced by student map which
 /// will cause use to change our for loop conditions slightly.
@@ -138,6 +160,7 @@ vector<double> scoreDistribution(vector<Unit> unitScores)
 {
     vector<double> scoreCounts;
     double highestScore = 0;
+<<<<<<< HEAD
     
     for (Unit score : unitScores)
     {
@@ -155,6 +178,28 @@ vector<double> scoreDistribution(vector<Unit> unitScores)
     for (Unit score : unitScores)
     {
         scoreCounts.at(score.getGrade())++;
+=======
+    double count;
+    for (Unit score : unitScores)
+    {
+        if (unitScores.getGrade() > highestScore)
+        {
+            highestScore = unitScores.getGrade();
+        }
+    }
+
+    for (int i = 0; i < highestScore; i++)
+    {
+        count = 0;
+        for (Unit score : unitScores)
+        {
+            if (unitScores.getGrade() == i)
+            {
+                count++;
+            }
+        }
+        scoreCounts.push_back(count);
+>>>>>>> db8e1fe037e197d4051813072b532d41ff9472c8
     }
 
     return scoreCounts;
