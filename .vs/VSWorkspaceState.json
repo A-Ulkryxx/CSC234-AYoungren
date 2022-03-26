@@ -4,7 +4,9 @@
     "\\FrequencyTables",
     "\\FrequencyTables\\FrequencyTables",
     "\\RPG_AY",
-    "\\RPG_AY\\RPG_AY"
+    "\\RPG_AY\\RPG_AY",
+    "\\ShutTheBox",
+    "\\ShutTheBox\\ShutTheBox"
   ],
   "SelectedNode": "\\FrequencyTables\\FrequencyTables\\FrequencyTables.cpp",
   "PreviewInSolutionExplorer": false
