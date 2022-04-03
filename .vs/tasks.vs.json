@@ -1,15 +1,20 @@
 {
-  "version": "0.2.1",
   "tasks": [
     {
-      "taskLabel": "task-OverloadCS",
-      "appliesTo": "OverloadCS/",
+      "taskLabel": "task-OverloadCopyC_CS_AY",
+      "appliesTo": "OverloadCopyC_CS_AY/OverloadCopyC_CS_AY/OverloadCopyC_CS_AY.cpp",
       "type": "launch"
     },
     {
-      "taskLabel": "task-OverloadCS_AY",
-      "appliesTo": "OverloadCS_AY/",
+      "taskLabel": "task-OverloadCopyC_CS_AY",
+      "appliesTo": "OverloadCopyC_CS_AY/OverloadCopyC_CS_AY/",
+      "type": "launch"
+    },
+    {
+      "taskLabel": "task-OverloadCopyC_CS_AY",
+      "appliesTo": "OverloadCopyC_CS_AY/OverloadCopyC_CS_AY/OverloadCopyC_CS_AY.cpp",
       "type": "launch"
     }
-  ]
+  ],
+  "version": "0.2.1"
 }
