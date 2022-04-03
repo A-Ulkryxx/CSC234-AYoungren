@@ -1,0 +1,15 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskLabel": "task-OverloadCS",
+      "appliesTo": "OverloadCS/",
+      "type": "launch"
+    },
+    {
+      "taskLabel": "task-OverloadCS_AY",
+      "appliesTo": "OverloadCS_AY/",
+      "type": "launch"
+    }
+  ]
+}

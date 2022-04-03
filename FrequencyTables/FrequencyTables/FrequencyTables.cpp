@@ -191,19 +191,3 @@ vector<double> scorePercentages(vector<Unit>unitScores)
 }
 
 
-vector<Unit> getUnitScores(map<double, vector<Unit>> studentDatabase, string specifiedAssessment)
-{
-    vector<Unit> unitScores;
-    for (double student : studentDatabase)
-    {
-        for (Unit u : student.getUnit())
-        {
-            if (u.getAssessment() == specifiedAssessment)
-            {
-                unitScores.push_back(u.getGrade());
-            }
-        }
-    }
-
-    return unitScores;
-}

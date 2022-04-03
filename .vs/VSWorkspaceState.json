@@ -1,13 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\FrequencyTables",
-    "\\FrequencyTables\\FrequencyTables",
-    "\\RPG_AY",
-    "\\RPG_AY\\RPG_AY",
-    "\\ShutTheBox",
-    "\\ShutTheBox\\ShutTheBox"
+    "\\Point_Line_Test1_AY",
+    "\\Point_Line_Test1_AY\\Debug"
   ],
-  "SelectedNode": "\\FrequencyTables\\FrequencyTables\\FrequencyTables.cpp",
   "PreviewInSolutionExplorer": false
 }
