@@ -1,9 +1,12 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Inheritane_AY\\Inheritane_AY",
-    "\\OverloadCheckS"
+    "\\OverloadOperators_AY",
+    "\\OverloadOperators_AY\\OverloadOperators_AY",
+    "\\OverloadOperators_AY\\OverloadOperators_AY\\Debug",
+    "\\ShutTheBox",
+    "\\ShutTheBox\\ShutTheBox"
   ],
-  "SelectedNode": "\\Inheritane_AY",
+  "SelectedNode": "\\OverloadOperators_AY",
   "PreviewInSolutionExplorer": false
 }

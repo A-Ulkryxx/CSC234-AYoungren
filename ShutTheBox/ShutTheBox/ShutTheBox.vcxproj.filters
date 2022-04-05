@@ -15,7 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ShutTheBoxAY4.cpp">
+    <ClCompile Include="..\..\OverloadOperators_AY\OverloadOperators_AY\OverloadOperators_AY.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\ShutTheBoxAY4.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,3 +1,25 @@
-﻿  ShutTheBoxAY4.cpp
-D:\Development\CSC234-AYoungren\ShutTheBox\ShutTheBox\ShutTheBoxAY4.cpp(44,10): warning C4101: 'winnerCheck': unreferenced local variable
-  ShutTheBox.vcxproj -> D:\Development\CSC234-AYoungren\ShutTheBox\x64\Debug\ShutTheBox.exe
+﻿  OverloadOperators_AY.cpp
+D:\Development\CSC234-AYoungren\OverloadOperators_AY\OverloadOperators_AY\OverloadOperators_AY.cpp(339,26): error C2679: binary '+': no operator found which takes a right-hand operand of type 'Person' (or there is no acceptable conversion)
+D:\Development\CSC234-AYoungren\OverloadOperators_AY\OverloadOperators_AY\OverloadOperators_AY.cpp(185,7): message : could be 'Clan Clan::operator +(Person *)'
+D:\Development\CSC234-AYoungren\OverloadOperators_AY\OverloadOperators_AY\OverloadOperators_AY.cpp(172,7): message : or       'Clan Clan::operator +(Clan *)'
+D:\Development\CSC234-AYoungren\OverloadOperators_AY\OverloadOperators_AY\OverloadOperators_AY.cpp(339,26): message : while trying to match the argument list '(Clan, Person)'
+D:\Development\CSC234-AYoungren\OverloadOperators_AY\OverloadOperators_AY\OverloadOperators_AY.cpp(349,25): error C2679: binary '+': no operator found which takes a right-hand operand of type 'Person' (or there is no acceptable conversion)
+D:\Development\CSC234-AYoungren\OverloadOperators_AY\OverloadOperators_AY\OverloadOperators_AY.cpp(185,7): message : could be 'Clan Clan::operator +(Person *)'
+D:\Development\CSC234-AYoungren\OverloadOperators_AY\OverloadOperators_AY\OverloadOperators_AY.cpp(172,7): message : or       'Clan Clan::operator +(Clan *)'
+D:\Development\CSC234-AYoungren\OverloadOperators_AY\OverloadOperators_AY\OverloadOperators_AY.cpp(349,25): message : while trying to match the argument list '(Clan, Person)'
+D:\Development\CSC234-AYoungren\OverloadOperators_AY\OverloadOperators_AY\OverloadOperators_AY.cpp(350,25): error C2679: binary '+': no operator found which takes a right-hand operand of type 'Person' (or there is no acceptable conversion)
+D:\Development\CSC234-AYoungren\OverloadOperators_AY\OverloadOperators_AY\OverloadOperators_AY.cpp(185,7): message : could be 'Clan Clan::operator +(Person *)'
+D:\Development\CSC234-AYoungren\OverloadOperators_AY\OverloadOperators_AY\OverloadOperators_AY.cpp(172,7): message : or       'Clan Clan::operator +(Clan *)'
+D:\Development\CSC234-AYoungren\OverloadOperators_AY\OverloadOperators_AY\OverloadOperators_AY.cpp(350,25): message : while trying to match the argument list '(Clan, Person)'
+D:\Development\CSC234-AYoungren\OverloadOperators_AY\OverloadOperators_AY\OverloadOperators_AY.cpp(353,25): error C2679: binary '+': no operator found which takes a right-hand operand of type 'Clan' (or there is no acceptable conversion)
+D:\Development\CSC234-AYoungren\OverloadOperators_AY\OverloadOperators_AY\OverloadOperators_AY.cpp(185,7): message : could be 'Clan Clan::operator +(Person *)'
+D:\Development\CSC234-AYoungren\OverloadOperators_AY\OverloadOperators_AY\OverloadOperators_AY.cpp(172,7): message : or       'Clan Clan::operator +(Clan *)'
+D:\Development\CSC234-AYoungren\OverloadOperators_AY\OverloadOperators_AY\OverloadOperators_AY.cpp(353,25): message : while trying to match the argument list '(Clan, Clan)'
+D:\Development\CSC234-AYoungren\OverloadOperators_AY\OverloadOperators_AY\OverloadOperators_AY.cpp(358,24): error C2679: binary '+': no operator found which takes a right-hand operand of type 'Clan' (or there is no acceptable conversion)
+D:\Development\CSC234-AYoungren\OverloadOperators_AY\OverloadOperators_AY\OverloadOperators_AY.cpp(185,7): message : could be 'Clan Clan::operator +(Person *)'
+D:\Development\CSC234-AYoungren\OverloadOperators_AY\OverloadOperators_AY\OverloadOperators_AY.cpp(172,7): message : or       'Clan Clan::operator +(Clan *)'
+D:\Development\CSC234-AYoungren\OverloadOperators_AY\OverloadOperators_AY\OverloadOperators_AY.cpp(358,24): message : while trying to match the argument list '(Clan, Clan)'
+D:\Development\CSC234-AYoungren\OverloadOperators_AY\OverloadOperators_AY\OverloadOperators_AY.cpp(362,24): error C2679: binary '+': no operator found which takes a right-hand operand of type 'Clan' (or there is no acceptable conversion)
+D:\Development\CSC234-AYoungren\OverloadOperators_AY\OverloadOperators_AY\OverloadOperators_AY.cpp(185,7): message : could be 'Clan Clan::operator +(Person *)'
+D:\Development\CSC234-AYoungren\OverloadOperators_AY\OverloadOperators_AY\OverloadOperators_AY.cpp(172,7): message : or       'Clan Clan::operator +(Clan *)'
+D:\Development\CSC234-AYoungren\OverloadOperators_AY\OverloadOperators_AY\OverloadOperators_AY.cpp(362,24): message : while trying to match the argument list '(Clan, Clan)'
