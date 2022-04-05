@@ -99,7 +99,94 @@ public:
 
 };
 
+class Student
+{
+private:
+    double idNum;
+    double districtID;
+    string gender;
+    string language;
+    string ethnicity;
+
+public:
+    Student()
+    {
+        idNum = 0;
+        districtID = 0;
+        gender = "";
+        language = "";
+        ethnicity = "";
+    }
+
+    Student(double paraIDNum, double paraDistrictID, string paraGender, string paraLanguage, string paraEthnicity)
+    {
+        this->idNum = paraIDNum;
+        this->districtID = paraDistrictID;
+        this->gender = paraGender;
+        this->language = paraLanguage;
+        this->ethnicity = paraEthnicity;
+    }
+
+    void setIDNum(double paraIDNum)
+    {
+        this->idNum = paraIDNum;
+    }
+
+    double getIDNum()
+    {
+        return this->idNum;
+    }
+
+    void setdistrictID(double paraDistrictID)
+    {
+        this->districtID = paraDistrictID;
+    }
+
+    double getDistrictID()
+    {
+        return this->districtID;
+    }
+
+    void setGender(string paraGender)
+    {
+        this->gender = paraGender;
+    }
+
+    string getGender()
+    {
+        return this->gender;
+    }
+
+    void setLanguage(string paraLanguage)
+    {
+        this->language = paraLanguage;
+    }
+
+    string getLanguage()
+    {
+        return this->language;
+    }
+
+    void setEthnicity(string paraEthnicity)
+    {
+        this->ethnicity = paraEthnicity;
+    }
+
+    string getEthnicity()
+    {
+        return this->ethnicity;
+    }
+
+    //Luke Padula: did this little operator overide to enable sort
+    bool operator < (const Student& obj) const
+    {
+        return (idNum < obj.idNum);
+
+    }
+};
+
 vector<double> scoreDistribution(vector<Unit> unitScores);
+vector<double> scorePercentages(vector<double>unitScores, vector<double> scoreCounts);
 
 int main()
 {
@@ -115,19 +202,6 @@ int main()
 /// <summary>
 /// Counts the number of occurances of each score within a unit across all students.
 /// </summary>
-/// 
-/// <param name="unitScores">
-/// A vector containing units. Will likely be replaced by student map which
-/// will cause use to change our for loop conditions slightly.
-/// </param>
-/// 
-/// <returns vector = "scoreCount> 
-/// A vector containing the the number of occurences of each possible score in the unit.
-/// Index of 0 would contain the number of times a 0 was scored. 
-/// </returns>
-/// <summary>
-/// Counts the number of occurances of each score within a unit across all students.
-/// </summary>
 /// <param name="unitScores">
 /// A vector containing units. Will likely be replaced by student map which
 /// will cause use to change our for loop conditions slightly.
@@ -135,17 +209,17 @@ int main()
 /// <returns vector = "scoreCount> 
 /// A vector containing the the number of occurences of each possible score in the unit.
 /// Index of 0 would contain the number of times a 0 was scored. 
-/// </returns>
-static vector<double> scoreDistribution(vector<Unit> unitScores)
+/// </returns>static vector<double> scoreDistribution(vector<Unit> unitScores)
+vector<double> scoreDistribution(vector<double> unitScores)
 {
     vector<double> scoreCounts;
     double highestScore = 0;
 
-    for (Unit score : unitScores)
+    for (double score : unitScores)
     {
-        if (score.getGrade() > highestScore)
+        if (score > highestScore)
         {
-            highestScore = score.getGrade();
+            highestScore = score;
         }
     }
 
@@ -154,28 +228,28 @@ static vector<double> scoreDistribution(vector<Unit> unitScores)
         scoreCounts.push_back(0);
     }
 
-    for (Unit score : unitScores)
+    for (double score : unitScores)
     {
-        scoreCounts.at(score.getGrade())++;
+        scoreCounts[score]++;
     }
-
     return scoreCounts;
+
+
+
 }
 
-/// <summary>
-/// 
-/// </summary>
-/// <param name="unitScores"></param>
-/// <returns "scorePercentage"> a vector </returns>
-vector<double> scorePercentages(vector<Unit>unitScores) 
+/// takes the score counts which sorted each score individually and counts the frequency of each score as it goes through them up to the top score
+/// then takes the frequency and divides it by the total number of scores and multiplies into a percentage
+/// STILL NEEDS TO BE IMPLEMENTED
+vector<double> scorePercentages(vector<double>unitScores, vector<double> scoreCounts)
 {
 
-    vector<double> scoreCounts = scoreDistribution(unitScores);
-    double scoreSum = 0;
     vector<double> scorePercentage;
+    double scoreSum = 0;
+    
     double temp;
 
-    for (double s : scoreCounts)
+    for (double s : unitScores)
     {
         scoreSum = scoreSum + s;
     }
@@ -190,4 +264,78 @@ vector<double> scorePercentages(vector<Unit>unitScores)
     return scorePercentage;
 }
 
+/// <summary>
+/// Templates used until more information is recieved from DS.
+/// I opted for templates since I am unsure how a key will be placed into the first location of a double vector.
+/// 
+/// Current takes in a key and a vector. The key is used to find the sum of max scores.
+/// The vector is used to find sum of total scores. 
+/// These two sums are used to find the raw score percentage of that student.
+/// </summary>
+/// <typeparam name="T"> T generic represents score member currently</typeparam>
+/// <typeparam name="K"> K generic represents a key member</typeparam>
+/// <param name="studentKey">A key containing aditional information of the student</param>
+/// <param name="studentScores">Assumed Vector of Student's scores</param>
+/// <returns>
+/// Overall percentage grade of given score for a single student. 
+/// Returns as a percentage value rounded to two decimal places 
+/// </returns>
+template <typename T, typename K>
+    //unsure if needed, but accidently created it so... here it is
+double studentCareerScorePerc(K studentKey, vector<T> studentScores) 
+{
+    double studTotalScore = 0;
+    double studMaxScore = 0;
+    double studRawPerc;
+    for (T score : studentScores)
+    {
+        studTotalScore += score;
+    }
+    for (T mScore : studentKey.getMaxScores())
+    {
+        studMaxScore += score;
+    }
 
+    studRawPerc = studTotalScore / studMaxScore;
+    studRawPerc = round(studRawPerc * 100.0) / 100.0;
+
+    return studTotalPerc;
+}
+
+/// <summary>
+/// Finds the individual percentage of each performance. 
+/// Then adds each individual performance to one percentage sum.
+/// percentage sum is divided my the total number of scores to provide weighted performance
+/// of scores given. 
+/// </summary>
+/// <typeparam name="T"> T generic represents score member currently</typeparam>
+/// <typeparam name="K"> K generic represents a key member</typeparam>
+/// <param name="studentKey">A key containing aditional information of the student</param>
+/// <param name="studentScores">Assumed Vector of Student's scores</param>
+/// <returns>
+/// Returns overall weighted grade of given scores.
+///  It returned as a percentage value rounded to two decimals
+/// </returns>
+template <typename T, typename K>
+double studentCareerWeightPerc(K studentKey, vector<T> studentScores)
+{
+    double studTotalScore = 0;
+    double studMaxScore = 0;
+    int numOfScores = studentScores.size();
+    double studRawPercSum;
+    double studWeightedPerc;
+    
+    for (int i = 0; i < studentScores.size(); i++)
+    {
+        if (!studentKey.getMaxScores().at(i) == 0)
+        {
+            studTotalScore = studentScores.at(i);
+            studMaxScore = studentKey.getMaxScores().at(i);
+            studRawPercSum = studRawPercSum + (studTotalScore / studMaxScore);
+        }
+    }
+    studWeightedPerc = studRawPercSum / numOfScores;
+    studWeightedPerc = round(studWeightedPerc * 100.0) / 100.0;
+
+    return studWeightedPerc;
+}

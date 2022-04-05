@@ -1,12 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\OverloadOperators_AY",
-    "\\OverloadOperators_AY\\OverloadOperators_AY",
-    "\\OverloadOperators_AY\\OverloadOperators_AY\\Debug",
-    "\\ShutTheBox",
-    "\\ShutTheBox\\ShutTheBox"
+    "\\FrequencyTables",
+    "\\FrequencyTables\\FrequencyTables"
   ],
-  "SelectedNode": "\\OverloadOperators_AY",
+  "SelectedNode": "\\FrequencyTables\\FrequencyTables\\FrequencyTables.cpp",
   "PreviewInSolutionExplorer": false
 }
