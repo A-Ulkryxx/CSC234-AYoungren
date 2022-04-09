@@ -63,8 +63,8 @@ public:
 	//use this method to see if you code is working.  Remove once you have the overloaded operator << working
 	void printPerson()
 	{
-		cout << "name: " << personName;
-		cout << " age: " << age;
+		cout << "Name: " << personName;
+		cout << "  Age: " << age << endl;
 	}
 
 	//add overload operator to output a Person
@@ -173,6 +173,26 @@ public:
 	}
 
 	//add overload operator to input a Clan, call the overloaded operator for Person
+	
+	Clan operator =(Clan obj)
+	{
+		Clan tempClan;
+		Person* tempPers;
+		for (Person* p : this->memberList)
+		{
+			tempPers = p;
+			tempClan.memberList.push_back(new Person(tempPers));
+		}
+		 
+		this->memberList.clear();
+
+		for (Person* p : obj.memberList)
+		{
+			tempPers = p;
+			tempClan.memberList.push_back(new Person(tempPers));
+		}
+		return tempClan;
+	}
 	//add overloaded operators to combine two Clans
 	Clan operator +(Clan obj)
 	{
@@ -344,16 +364,20 @@ int main( )
 	//since you are passing in the input stream you will be using the overloaded operator >>
 	//		without changing the method.
 	ifstream infile;
-	string memberList;
+	
 	string memberName;
 	int memberAge;
 
 	infile.open("people.txt", ios::in);
 
-	while (!infile.fail() && getline(infile, memberList))
+	infile >> memberName >> memberAge;
+	cout << memberName << " " << memberAge;
+	while (!infile.fail())
 	{
-		infile >> memberName >> memberAge;
+		person1 = new Person(memberName, memberAge);
 		clan1 = clan1 + person1;
+		infile >> memberName >> memberAge;
+		cout << memberName << " " << memberAge;
 	}
 	infile.close();
 

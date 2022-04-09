@@ -113,8 +113,13 @@ public:
 	void operator = (Inventory obj)
 	{
 		Item *holder;
-
+		
+		for (Item* e : itemList)
+		{
+			delete e;
+		}
 		this->itemList.clear();
+
 		for (Item* e : obj.itemList)
 		{
 			holder = new Item(e);
