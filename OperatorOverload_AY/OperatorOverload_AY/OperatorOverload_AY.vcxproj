@@ -19,10 +19,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Clan.cpp" />
     <ClCompile Include="OverloadOperators_AY.cpp" />
+    <ClCompile Include="Person.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="people.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Clan.h" />
+    <ClInclude Include="Header.h" />
+    <ClInclude Include="Person.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

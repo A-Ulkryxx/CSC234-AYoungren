@@ -1,3 +1,6 @@
-﻿  OverloadOperators_AY.cpp
-D:\Development\CSC234-AYoungren\OperatorOverload_AY\OperatorOverload_AY\OverloadOperators_AY.cpp(372,6): warning C4101: 'memberAge': unreferenced local variable
+﻿  Clan.cpp
+  OverloadOperators_AY.cpp
+D:\Development\CSC234-AYoungren\OperatorOverload_AY\OperatorOverload_AY\OverloadOperators_AY.cpp(40,6): warning C4101: 'memberAge': unreferenced local variable
+  Person.cpp
+  Generating Code...
   OperatorOverload_AY.vcxproj -> D:\Development\CSC234-AYoungren\OperatorOverload_AY\Debug\OperatorOverload_AY.exe

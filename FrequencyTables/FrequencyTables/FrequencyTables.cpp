@@ -192,8 +192,6 @@ template <typename T, typename K>
 double studentCareerScorePerc(K studentKey, vector<T> studentScores);
 template <typename T, typename K>
 double studWeightPerc(K studentKey, vector<T> studentScores);
-template <class T>
-int countVector(vector<T> vec);
 bool isEven(vector<double> vec);
 double median(vector<double> vec);
 double mean(vector<double> vec);
@@ -201,6 +199,11 @@ template <class K>
 double medianPerc(K scoreKey, vector<double> vec);
 template <class K>
 double meanPerc(K scoreKey, vector<double> vec);
+template <class K>
+double failPass(K scoreKey, vector<double> unitScores);
+template <class K>
+vector<double> scoreToPerc(K scoreKey, vector<double> unitScores);
+
 
 int main()
 {
@@ -237,14 +240,6 @@ vector<double> scoreDistribution(vector<double> unitScores)
     vector<double> scoreCounts;
     double highestScore = 0;
 
-    for (double score : unitScores)
-    {
-        if (score > highestScore)
-        {
-            highestScore = score;
-        }
-    }
-
     for (int i = 0; i < highestScore; i++)
     {
         scoreCounts.push_back(0);
@@ -256,13 +251,8 @@ vector<double> scoreDistribution(vector<double> unitScores)
     }
     return scoreCounts;
 
-
-
 }
 
-/// 
-/// FUNCTION BELOW DOES NOT DO WHAT WE THINK IT DOES, WE WILL NEED TO REWORK THIS
-/// I AM GOING TO TRY TO MEET WITH LUKE TO SEE HOW BEST TO APPROACH THIS
 
 /// <summary>
 /// takes the score counts, which are sorted individually.
@@ -281,7 +271,7 @@ vector<double> scorePercentages(vector<double>unitScores, vector<double> scoreCo
 
     for (double s : unitScores)
     {
-        scoreSum = scoreSum + s;
+        scoreSum++;
     }
 
     for (double p : scoreCounts)
@@ -396,34 +386,6 @@ double studWeightPerc(K studentKey, vector<T> studentScores)
     studWeightedPerc = round(studWeightedPerc * 100.0) / 100.0;
 
     return studWeightedPerc;
-}
-
-/// <summary>
-/// Counts any vector using generic type T and returns int
-/// </summary>
-/// 
-/// <typeparam name="T">
-/// Generic place holder
-/// </typeparam>
-/// 
-/// <param name="vec">
-///  Data set as score values
-/// </param>
-/// 
-/// <returns>
-/// size of the vector - int
-/// </returns>
-/// 
-/// <author> Kenneth Wallin
-template <class T>
-int countVector(vector<T> vec)
-{
-	int count = 0;
-	for (T stuff: vec)
-	{
-		count++;
-	}
-	return count;
 }
 
 /// <summary>
@@ -595,4 +557,75 @@ double meanPerc(K scoreKey, vector<double> vec)
     }
     mean = ((double)total / count);
     return mean;
+}
+
+/// <summary>
+/// Finds the percentage of students who passed the given assessment.
+/// </summary>
+/// 
+/// <param name="scoreKey">
+/// A key to that contains additional data of given assessment
+/// </param>
+/// 
+/// <param name="unitScores">
+/// a vector of scores for an assessment
+/// </param>
+/// 
+/// <returns>
+/// The percentage of students who passed
+/// </returns>
+/// 
+/// <author> Abigayle Wing
+/// <editor> Austin Youngren
+template <class K>
+double percentagePass( K scoreKey, vector<double> unitScores)
+{
+
+    vector<double> unitPercs = scoreToPerc( scoreKey, unitScores);
+    double passRate;
+    int passCount = 0;
+    for (double score : unitPercs) 
+    {
+        if (score >= 70.0)
+        {
+            passCount++;
+        }
+    }
+    passRate = ((passCount / unitPercs.size()) * 100);
+    passRate = round(passRate * 100.0) / 100.0;
+
+    return passRate;
+} 
+
+/// <summary>
+/// Converts 
+/// </summary>
+/// 
+/// <param name="scoreKey">
+/// A key to that contains additional data of given assessment
+/// </param>
+/// 
+/// <param name="unitScores">
+/// a vector of scores for an assessment
+/// </param>
+/// 
+/// <returns>
+/// returns a vector containing each score as a percentage
+/// </returns>
+/// 
+/// <author> Austin Youngren
+template <class K>
+vector<double> scoreToPerc(K scoreKey, vector<double> unitScores)
+{
+    double temp;
+    vector<double> scoreAsPerc;
+    for (int i = 0; i < unitScores; i++)
+    {
+        
+         temp = ((unitScores.at(i) / scoreKey.getMaxScore()) * 100);
+         temp = round(temp * 100.0) / 100.0;
+         scoreAsPerc.push_back(temp);  
+    }
+
+    return scoreAsPerc;
 }

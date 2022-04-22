@@ -1,3 +1,5 @@
+//Austin Youngren
+
 //This program lets you create, copy, combine containers of items.  If you were in an RPG game this could be the bag you are carrying
 //   or the treasure chest of items you find.
 //You will need to write copy constructors and overloaded operators.  As you read through the code you will see comments explaining
